@@ -1,0 +1,23 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REQUERIMIENTOS ITERACION 3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+:::::::::::::::::::::::REQUERIMIENTOS FUNCIONALES DE CONSULTA:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+>>>>>>>>>>RFC9. CONSULTAR EL CONSUMO 
+GET 
+http://localhost:8080/RotondAndes/rest/consultarConsumoClientes/16/fechas?fecha1=01-01-17&fecha2=01-11-17
+
+
+
+>>>>>>>>>>RFC10. CONSULTAR no CONSUMO 
+http://localhost:8080/RotondAndes/rest/consultarNOConsumoClientes/16/fechas?fecha1=01-01-17&fecha2=01-11-17
+
+
+>>>>>>>>>>RFC11. CONSULTAR FUNCIONAMIENTO
+Para el caso de los productos
+http://localhost:8080/RotondAndes/rest/darProductosPorDiaSegunPedidos
+
+Para el caso de los restaurantes 
+http://localhost:8080/RotondAndes/rest/darRestauranteMasyMenosFrecuentadoPorDia
+
+>>>>>>>>>>RFC12. CONSULTAR LOS BUENOS CLIENTES
+http://localhost:8080/RotondAndes/rest/consultarBuenosClientes

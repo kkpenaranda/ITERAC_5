@@ -1,0 +1,632 @@
+URL's DE EJEMPLO - PRUEBAS EN POSTMAN
+
+URL's DE EJEMPLO - PRUEBAS EN POSTMAN
+
+GET (TODOS LOS RESTAURANTES)
+
+http://localhost:8080/RotondAndes/rest/restaurantes
+
+GET (TODOS LOS MENUS)
+
+http://localhost:8080/RotondAndes/rest/menus
+
+GET (TODOS LOS PRODUCTOS)
+
+http://localhost:8080/RotondAndes/rest/productos
+
+GET (TODOS LOS INGREDIENTES)
+
+http://localhost:8080/RotondAndes/rest/ingredientes
+
+GET (TODOS LOS CATEGORIAS)
+
+http://localhost:8080/RotondAndes/rest/categorias
+
+GET (TODOS LOS USUARIOS)
+
+http://localhost:8080/RotondAndes/rest/usuarios
+
+GET (TODOS LOS CLIENTES_REGISTRADOS)
+
+http://localhost:8080/RotondAndes/rest/clientesRegistrados
+
+GET (TODOS LOS CLIENTES_NOREGISTRADOS)
+
+http://localhost:8080/RotondAndes/rest/clientesNoRegistrados
+
+GET (TODOS LOS PEDIDOS)
+
+http://localhost:8080/RotondAndes/rest/pedidos
+
+GET (TODOS LOS ZONAS)
+
+http://localhost:8080/RotondAndes/rest/zonas
+
+GET (TODOS LOS TIPOS DE COMIDA)
+
+http://localhost:8080/RotondAndes/rest/tiposComida
+
+GET (TODOS LOS ESPACIOS)
+
+http://localhost:8080/RotondAndes/rest/espacios
+
+GET (CUALQUIER OBJETO POR ID)
+http://localhost:8080/RotondAndes/rest/restaurantes/1
+http://localhost:8080/RotondAndes/rest/menus/1
+http://localhost:8080/RotondAndes/rest/productos/1
+http://localhost:8080/RotondAndes/rest/ingredientes/1
+http://localhost:8080/RotondAndes/rest/categorias/1
+http://localhost:8080/RotondAndes/rest/usuarios/1
+http://localhost:8080/RotondAndes/rest/clientesRegistrados/1
+http://localhost:8080/RotondAndes/rest/clientesNoRegistrados/1
+http://localhost:8080/RotondAndes/rest/pedidos/1
+http://localhost:8080/RotondAndes/rest/zonas/1
+http://localhost:8080/RotondAndes/rest/tiposComida/1
+http://localhost:8080/RotondAndes/rest/espacios/1
+
+POST 
+
+http://localhost:8080/RotondAndes/rest/restaurantes
+
+JSON:
+
+  {
+    "nit": 1805,
+    "nombre": "KFC",
+    "especialidad": "Pollo frito",
+    "totalProductosDisponibles": 1000,
+    "tipoComida": "Comida rapida",
+    "paginaWebURL": "kfc.com",
+    "idZona": 5
+  }
+ 
+PUT
+
+http://localhost:8080/RotondAndes/rest/restaurantes
+
+
+****REQUERIMIENTOS****
+RF1 - REGISTRAR USUARIOS AGREGANDO LA INFORMACION PARTICULAR SEGUN EL ROL
+
+:::PARA REGISTRAR UN CLIENTE:::
+POST 
+http://localhost:8080/RotondAndes/rest/registrarUsuariosClientes
+
+JSON:
+{
+"usuario": {"id": 942003,
+    "nombre": "Amilkar Eslava",
+    "correoElectronico": "aeslava@hotmail.com",
+    "rol": "Cliente",
+    "contrasenia": "1234561"
+},
+"banco": "Davivienda",
+"idAdministrador": "908",
+"contraseniaAdministrador": "kellujsk"
+}
+
+NOTA: Se ingresan los datos bàsicos de un usuario màs la informacion particular segun el rol. 
+
+DEBE FALLAR: SI EL ROL INGRESADO NO CORRESPONDE CON UN CLIENTE.
+
+JSON:
+{
+"usuario": {"id": 942003,
+    "nombre": "Amilkar Eslava",
+    "correoElectronico": "aeslava@hotmail.com",
+    "rol": "Administrador",
+    "contrasenia": "1234561"
+},
+"banco": "Davivienda",
+"idAdministrador": "908",
+"contraseniaAdministrador": "kellujsk"
+}
+
+"ERROR": "Ingrese los datos correspondientes al rol que desea. Esta ingresando de Restaurante y se esperaban datos de clientes "
+
+
+:::PARA REGISTRAR UN RESTAURANTE:::
+POST 
+http://localhost:8080/RotondAndes/rest/registrarUsuariosRestaurantes
+
+JSON:
+{
+"usuario": {"id": 9090113,
+    "nombre": "Pan Pa Ya",
+    "correoElectronico": "ppy@hotmail.com",
+    "rol": "Restaurante",
+    "contrasenia": "nuevo:)"
+},
+    "especialidad": "Pollo",
+    "totalProductosDisponibles": 100,
+    "tipoComida": "Colombiana",
+    "paginaWeb": "ppy.vo",
+    "idZona": 5,
+    "idAdministrador": 12,
+    "contraseniaAdministrador": "968"
+}
+
+NOTA: Se ingresan los datos bàsicos de un usuario màs la informacion particular segun el rol de restaurante. 
+
+DEBE FALLAR: SI EL ROL INGRESADO NO CORRESPONDE CON UN RESTAURANTE.
+
+JSON:
+{
+"usuario": {"id": 909011,
+    "nombre": "Pan Pa Ya",
+    "correoElectronico": "ppy@hotmail.com",
+    "rol": "Cliente",
+    "contrasenia": "nuevo:)"
+},
+    "especialidad": "Pollo",
+    "totalProductosDisponibles": 100,
+    "tipoComida": "Colombiana",
+    "paginaWeb": "ppy.vo",
+    "idZona": 5,
+    "idAdministrador": 12,
+    "contraseniaAdministrador": "968"
+}
+
+"ERROR": "Ingrese los datos correspondientes al rol que desea. Esta ingresando de Cliente y se esperaban datos de restaurantes "
+
+
+:::PARA REGISTRAR UN ADMINISTRADOR:::
+POST 
+http://localhost:8080/RotondAndes/rest/registrarUsuarioAdministrador
+
+JSON:
+{
+"id": 10,
+    "nombre": "Ramiro de la Vega",
+    "correoElectronico": "rdelavega@hotmail.com",
+    "rol": "Administrador",
+    "contrasenia": "contra" 
+}
+
+NOTA: Se ingresan los datos bàsicos de un usuario no tiene informacion particular ya que el administrador no tiene datos extra. 
+
+DEBE FALLAR: SI EL ROL INGRESADO NO CORRESPONDE CON UN ADMINISTRADOR.
+
+JSON:
+{
+"id": 90885099011,
+    "nombre": "Ramiro de la Vega",
+    "correoElectronico": "rdelavega@hotmail.com",
+    "rol": "Cliente",
+    "contrasenia": "contra"
+}
+
+ "ERROR": "Los datos no son validos. Ingrese todos los datos para el rol que desea, es decir, Administrador. En cambio, se recibio Cliente"
+
+RF2 - REGISTRAR CLIENTE
+POST 
+http://localhost:8080/RotondAndes/rest/ingresarCliente
+
+JSON: 
+{
+"idAdministrador":908,
+"contraseniaAdministrador":"kellujsk",
+"cliente": {
+    "id": 390,
+    "nombre": "Lucia Fernandez",
+    "correoElectronico": "lFernandes@gmail.com",
+    "banco": "Davivienda"
+}
+}
+NOTA: Se ingresa la identificacion del usuario Administrador que registrara al cliente y el objeto cliente que se ingresara.
+
+
+CASO EN EL QUE DEBE FALLAR: SI EL ID DEL ADMINISTRADOR INGRESADO NO LE PERTENECE A UN ADMINISTRADOR SINO A UN USUARIO CON OTRO ROL.
+
+POST 
+http://localhost:8080/RotondAndes/rest/ingresarCliente
+
+
+JSON: 
+{
+"idAdministrador":1,
+"contraseniaAdministrador":"kellujsk",
+"cliente": {
+    "id": 390,
+    "nombre": "Lucia Fernandez",
+    "correoElectronico": "lFernandes@gmail.com",
+    "banco": "Davivienda"
+}
+}
+
+SE ESPERA LA EXCEPCION: "ERROR": "El identificador dado no le corresponde a un administrador. Su rol es Cliente"
+DANDO EL ROL QUE LE PERTENECE AL ID QUE SE INGRESO.
+
+RF3 - REGISTRAR RESTAURANTE
+
+POST 
+http://localhost:8080/RotondAndes/rest/ingresarRestaurante
+
+JSON:
+{
+"idAdministrador":908,
+"contraseniaAdministrador": "kellujsk",
+    "restaurante": 
+    {"nit": 90712,
+    "nombre": "El mexicano",
+    "especialidad": "Costillas BBQ",
+    "totalProductosDisponibles": 100,
+    "tipoComida": "Mexicano",
+    "paginaWebURL": "llk.vo",
+    "idZona": 5}
+}
+
+NOTA: Se ingresa la identificacion del usuario Administrador que registrara al restaurante y el objeto restaurante que se ingresara.
+
+CASO EN EL QUE DEBE FALLAR: SI EL ID DEL ADMINISTRADOR INGRESADO NO LE PERTENECE A UN ADMINISTRADOR SINO A UN USUARIO CON OTRO ROL.
+
+POST 
+http://localhost:8080/RotondAndes/rest/ingresarRestaurante
+
+JSON:
+{
+"idAdministrador":1,
+"contraseniaAdministrador": "kellujsk",
+    "restaurante": 
+    {"nit": 14425009876,
+    "nombre": "El mexicano",
+    "especialidad": "Costillas BBQ",
+    "totalProductosDisponibles": 100,
+    "tipoComida": "Mexicano",
+    "paginaWebURL": "llk.vo",
+    "idZona": 5}
+}
+
+SE ESPERA LA EXCEPCION: "ERROR": "El identificador dado no le corresponde a un administrador. Su rol es Cliente"
+
+
+RF4 - REGISTRAR PRODUCTO
+POST
+http://localhost:8080/RotondAndes/rest/IngresarProducto
+
+ {
+  "idUsuarioRestaurante": 16,
+  "contrasenia":"taco123",
+  "productoVenta": {
+     "id_ProductoVenta":4,
+     "nit": 16,
+     "costo": 16917,
+     "precio":25000,
+     "cantidad":100,
+     "fechaInServicio": "2016-12-01",
+     "fechaFinServicio": "2019-11-06", 
+     "cantidadMaxima": 100
+    },
+    "producto":  {
+    "idProducto": 123,
+    "personalizable": false,
+    "nombre": "Fresas con crema",
+    "traduccionDescripcion": "Ideal para parejas",
+    "tiempoPreparacion": 50,
+    "descripcion": "Ideal for couples",
+    "idCategoria": 1,
+    "idTipoComida": 6, 
+    "idProductoVenta":"4"
+     },
+     
+     "ingredientes":[1,2,3,4]
+     
+  }
+NOTA: Se ingresa la identificacion del usuario Restaurante que harà el ingreso del producto, el objeto Producto y el id del menu al que pertenece
+
+
+RF5 - REGISTRAR INGREDIENTE
+POST
+http://localhost:8080/RotondAndes/rest/IngresarIngrediente
+
+JSON:
+ {
+    "idUsuarioRestaurante": 16,
+    "contrasenia":"taco123",
+    "ingrediente": {
+    "idIngrediente": 2,
+    "nombre": "Fresas",
+    "descripcion": "Nutritivas",
+    "traduccionDescripcion": "Healthy"
+     }
+  }
+
+
+NOTA: Se ingresa la identificacion del usuario Restaurante que harà el ingreso, el objeto Ingrediente y el id del producto al que pertenece
+
+
+RF6 - REGISTRAR MENÚ
+POST
+http://localhost:8080/RotondAndes/rest/IngresarMenu
+
+JSON:
+  
+ {
+    "idUsuarioRestaurante": 16,
+    "contrasenia":"taco123",
+    "productoVenta": {
+     "id_ProductoVenta": 6,
+     "nit":16,
+     "costo":19300,
+     "precio":25300,
+     "cantidad":250,
+     "fechaInServicio":"2016-12-01",
+     "fechaFinServicio":"2019-11-06",
+     "cantidadMaxima":250
+    },
+    "menu": {
+    "id": 7,
+    "nombre": "Super lunch!",
+    "idProductoVenta": 6
+    },
+    "productos":[1,2,123]
+  }
+  
+RF7. REGISTRAR UNA ZONA
+POST 
+http://localhost:8080/RotondAndes/rest/ingresarZona
+
+JSON: 
+{
+"idAdministrador":908,
+"contraseniaAdministrador": "kellujsk",
+    "zona": 
+    {
+    "idZona": 71,
+    "nombre": "Este"
+  }
+ }
+
+NOTA: Se ingresa la identificacion del usuario Administrador que registrara a la zona y el objeto zona que se ingresara.
+
+
+CASO EN EL QUE DEBE FALLAR: SI EL ID DEL ADMINISTRADOR INGRESADO NO LE PERTENECE A UN ADMINISTRADOR SINO A UN USUARIO CON OTRO ROL.
+
+POST 
+http://localhost:8080/RotondAndes/rest/ingresarZona
+
+
+JSON: 
+
+{
+"idAdministrador":43,
+"contraseniaAdministrador": "1234",
+    "zona": 
+    {
+    "idZona": 71,
+    "nombre": "Este"
+  }
+ }
+
+SE ESPERA LA EXCEPCION: "ERROR": "El identificador dado no le corresponde a un administrador. Su rol es Restaurante"
+DANDO EL ROL QUE LE PERTENECE AL ID QUE SE INGRESO.
+
+RF9 - REGISTRAR PEDIDO DE UN PRODUCTO
+ESTE REQUERIMIENTO SE MODIFICARA EN LA ITERACIÓN 3
+POST 
+http://localhost:8080/RotondAndes/rest/IngresarPedido
+
+JSON
+  {
+    "idCliente": 1,
+    "numeroOrden": 8,
+    "idProductoVenta":1
+  }
+
+NOTA: Note que al registrar este pedido, el usuario ingresa el restaurante del que va a apedir, el pedido y los productos que desea. 
+Si se verifican las tablas en SMBD, se agregara el pedido y se disminuira el inventario del restaurante. (ver tabla valor_producto)
+
+RF10 - SERVIR PEDIDO
+PUT
+ 
+http://localhost:8080/RotondAndes/rest/ServirPedido
+
+JSON
+ 
+{
+"idUsuarioRestaurante":"16",
+        "contrasenia":"taco123",
+        "idPedido":"1"
+}
+
+////REQUERIMIENTOS DE CONSULTA/////
+RFC1 -- CONSULTAR PRODUCTOS SERVIDOS EN ROTONDANDES
+
+1. FILTRO POR RESTAURANTE
+
+GET: 
+http://localhost:8080/RotondAndes/rest/productosRestaurante/16
+
+SE OBTIENE EL JSON:
+[
+  {
+    "idProducto": 123,
+    "personalizable": true,
+    "nombre": "Fresas con crema",
+    "traduccionDescripcion": "Ideal para parejas",
+    "tiempoPreparacion": 50,
+    "descripcion": "Ideal for couples",
+    "idCategoria": 3,
+    "idTipoComida": 6,
+    "idProductoVenta": 4
+  },
+  {
+    "idProducto": 3,
+    "personalizable": true,
+    "nombre": "Tamal",
+    "traduccionDescripcion": "Para el desayuno",
+    "tiempoPreparacion": 50,
+    "descripcion": "For the breakfast",
+    "idCategoria": 1,
+    "idTipoComida": 6,
+    "idProductoVenta": 6
+  },
+  {
+    "idProducto": 1,
+    "personalizable": true,
+    "nombre": "Yogurt",
+    "traduccionDescripcion": "Ideal for a break",
+    "tiempoPreparacion": 50,
+    "descripcion": "Ideal para un  break",
+    "idCategoria": 4,
+    "idTipoComida": 6,
+    "idProductoVenta": 2
+  },
+  {
+    "idProducto": 4,
+    "personalizable": true,
+    "nombre": "Chocolate en leche",
+    "traduccionDescripcion": "Para el desayuno",
+    "tiempoPreparacion": 20,
+    "descripcion": "For the breakfast",
+    "idCategoria": 4,
+    "idTipoComida": 1,
+    "idProductoVenta": 7
+  },
+  {
+    "idProducto": 2,
+    "personalizable": true,
+    "nombre": "Galletitas",
+    "traduccionDescripcion": "Ideal for a break",
+    "tiempoPreparacion": 50,
+    "descripcion": "Ideal para un  break",
+    "idCategoria": 5,
+    "idTipoComida": 6,
+    "idProductoVenta": 1
+  }
+]
+NOTA: COMO INDICA EL ENUNCIADO, LOS FILTROS SE PUEDEN HACER DE MUCHAS MANERAS DIFERENTES, SE IMPLEMENTO UNA POR MEDIO DEL ID DEL RESTAURANTE. Y A CONTINUACION, SE MOSTRARAN OTRAS OPCIONES:
+
+2. FILTRO POR CATEGORIA
+GET
+http://localhost:8080/RotondAndes/rest/productosCategoria/4
+
+SE OBTIENE:
+JSON
+[
+  {
+    "idProducto": 20,
+    "personalizable": true,
+    "nombre": "Leche fresca",
+    "traduccionDescripcion": "Para el desayuno",
+    "tiempoPreparacion": 20,
+    "descripcion": "For the breakfast",
+    "idCategoria": 4,
+    "idTipoComida": 1,
+    "idProductoVenta": 20
+  },
+  {
+    "idProducto": 4,
+    "personalizable": true,
+    "nombre": "Chocolate en leche",
+    "traduccionDescripcion": "Para el desayuno",
+    "tiempoPreparacion": 20,
+    "descripcion": "For the breakfast",
+    "idCategoria": 4,
+    "idTipoComida": 1,
+    "idProductoVenta": 7
+  },
+  {
+    "idProducto": 178,
+    "personalizable": true,
+    "nombre": "Chocolate en leche",
+    "traduccionDescripcion": "Para el desayuno",
+    "tiempoPreparacion": 20,
+    "descripcion": "For the breakfast",
+    "idCategoria": 4,
+    "idTipoComida": 1,
+    "idProductoVenta": 16
+  },
+  {
+    "idProducto": 1,
+    "personalizable": true,
+    "nombre": "Yogurt",
+    "traduccionDescripcion": "Ideal for a break",
+    "tiempoPreparacion": 50,
+    "descripcion": "Ideal para un  break",
+    "idCategoria": 4,
+    "idTipoComida": 6,
+    "idProductoVenta": 2
+  }
+]
+
+3. FILTRO POR RANGO DE PRECIOS
+GET
+http://localhost:8080/RotondAndes/rest/productosRangoPrecio/3600/4000
+
+SE OBTIENE EL JSON:
+[
+  {
+    "idProducto": 2,
+    "personalizable": true,
+    "nombre": "Galletitas",
+    "traduccionDescripcion": "Ideal for a break",
+    "tiempoPreparacion": 50,
+    "descripcion": "Ideal para un  break",
+    "idCategoria": 5,
+    "idTipoComida": 6,
+    "idProductoVenta": 1
+  },
+  {
+    "idProducto": 1,
+    "personalizable": true,
+    "nombre": "Yogurt",
+    "traduccionDescripcion": "Ideal for a break",
+    "tiempoPreparacion": 50,
+    "descripcion": "Ideal para un  break",
+    "idCategoria": 4,
+    "idTipoComida": 6,
+    "idProductoVenta": 2
+  }
+]
+RFC2 -- CONSULTAR UNA ZONA
+
+
+GET: http://localhost:8080/RotondAndes/rest/darTodosLosClientes
+
+SE OBTIENE EL JSON: 
+
+[
+  {
+    "id": 100000000,
+    "nombre": "Maria Martinez",
+    "correoElectronico": "maria@hotmail.com",
+    "rol": "Cliente",
+    "contrasenia": "*********"
+  },
+  {
+    "id": 1,
+    "nombre": "Vivian Gomez",
+    "correoElectronico": "vivian@hotmail.com",
+    "rol": "Cliente",
+    "contrasenia": "*********"
+  },
+  {
+    "id": 123,
+    "nombre": "Camilo Santacruz",
+    "correoElectronico": "csanta@hotmail.com",
+    "rol": "Cliente",
+    "contrasenia": "*********"
+  }
+]
+
+NOTA: NO SE TUVO EN CUENTA PARA LOS USUARIOS CON ROL CLIENTE QUE ESTOS TIENEN PREFERENCIAS. SE DEFINIRA.
+
+RFC4 -- CONSULTAR PRODUCTO MAS REPETIDO EN MENUS
+
+GET: http://localhost:8080/RotondAndes/rest/productoMasOfrecido
+SE OBTIENE EL JSON:
+
+{
+  "idProducto": 1,
+  "personalizable": true,
+  "nombre": "Yogurt",
+  "traduccionDescripcion": "Ideal for a break",
+  "tiempoPreparacion": 50,
+  "descripcion": "Ideal para un  break",
+  "idCategoria": 4,
+  "idTipoComida": 6,
+  "idProductoVenta": 2
+}
+
+

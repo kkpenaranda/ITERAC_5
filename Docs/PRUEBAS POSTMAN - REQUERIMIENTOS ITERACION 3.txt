@@ -1,0 +1,145 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REQUERIMIENTOS ITERACION 3 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+:::::::::::::::::::::::REQUERIMIENTOS FUNCIONALES DE MODIFICACION:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+>>>>>>>>>>RF 11- REGISTRAR EQUIVALENCIA ENTRE INGREDIENTES
+POST 
+http://localhost:8080/RotondAndes/rest/IngresarEquivalenciaIngredientes
+JSON: 
+ { "idUsuarioRestaurante": 43,
+  "contrasenia":"1234",
+  "id_ingrediente1":"11",
+  "id_ingrediente2":"12"
+ }
+ 
+ Lanza excepcion si:
+ -Se ingresa un id_ingrediente que no pertenece al restaurante
+ -Se ingresa un usuario incorrecto: no existe, la contraseña no es la correcta
+ -Se ingresa con un idUsuarioRestaurante diferente al restaurante al que se asigna la equivalencia
+
+}
+
+>>>>>>>>>>RF 12- REGISTRAR EQUIVALENCIA ENTRE PRODUCTOS
+POST 
+http://localhost:8080/RotondAndes/rest/IngresarEquivalenciaProductos
+
+JSON: 
+ { "idUsuarioRestaurante": 16,
+  "contrasenia":"taco123",
+  "id_producto1":"4",
+  "id_producto2":"1"
+  }
+  
+
+>>>>>>>>>>RF 13 - SURTIR RESTAURANTES
+PUT 
+http://localhost:8080/RotondAndes/rest/surtirRestaurante
+
+JSON:
+{
+  "idRestaurante": 16, 
+  "contraseniaRestaurante": "taco123"
+}
+
+Lanza excepcion si:
+-El identificador dado no existe en el sistema.
+-El identificador dado no es de un restaurante.
+-La contraseña ingresada no corresponde con el identificador del restaurante.
+-
+  
+>>>>>>>>>>RF14 - REGISTRAR PEDIDO DE UN PRODUCTO – CON EQUIVALENCIAS
+POST 
+http://localhost:8080/RotondAndes/rest/IngresarPedido
+
+JSON:
+{
+	"idCliente":"",
+    "contrasenia":"",
+	"numeroOrden":"",
+	"idProductoVenta":"",
+	"personalizado":"",
+	"cantidadSolicitada":"",
+	"productoCambiado":"",
+	"productoNuevo":""
+}
+
+>>>>>>>>>>RF15 - REGISTRAR PEDIDO DE PRODUCTOS DE UNA MESA
+POST 
+http://localhost:8080/RotondAndes/rest/IngresarPedido
+
+JSON:
+{
+	"idCliente":"",
+    "contrasenia":"",
+	"numeroOrden":"",
+	"idProductoVenta":"",
+	"personalizado":"",
+	"cantidadSolicitada":"",
+	"mesa":"",
+	"cantidadSillas":""
+}
+
+>>>>>>>>>>RF16 - REGISTRAR EL SERVICIO DE UNA MESA
+PUT
+http://localhost:8080/RotondAndes/rest/registrarServicioPedido/1
+
+PARAMETRO JSON:
+{
+"idUsuarioRestaurante":"16",
+        "contrasenia":"taco123",
+        "idPedido":"2"
+}
+
+>>>>>>>>>>RF17 - CANCELAR UN SERVICIO
+DELETE
+http://localhost:8080/RotondAndes/rest/pedidos
+
+JSON:
+{
+  "idRestaurante": 16,
+  "contraseniaRestaurante": "taco123",
+  "numeroOrdenCancelada": 2
+     
+}
+
+
+:::::::::::::::::::::::REQUERIMIENTOS FUNCIONALES DE CONSULTA:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+>>>>>>>>>>RFC7. CONSULTAR EL CONSUMO DE UN CLIENTE REGISTRADO
+GET 
+http://localhost:8080/RotondAndes/rest/consultarProductosConsumidos/idCliente
+http://localhost:8080/RotondAndes/rest/consultarProductosConsumidosMenu/idCliente
+http://localhost:8080/RotondAndes/rest/consultarProductosConsumidosMesa/idCliente
+
+
+>>>>>>>>>>RFC8. CONSULTAR PEDIDOS
+
+//EN EL CASO EN EL QUE SE DESEE CONSULTAR POR EL RESTAURANTE
+GET
+http://localhost:8080/RotondAndes/rest/consultarPedidosRestaurante/16/taco123
+
+JSON:
+[
+    {
+        "idRestaurante": 16,
+        "sumaTotalVenta": 5000,
+        "totalProductos": 15
+    }
+]
+
+//EN EL CASO DE UN PRODUCTO VENTA
+GET
+http://localhost:8080/RotondAndes/rest/consultarPedidosProducto/16/taco123
+
+JSON:
+[
+    [
+    {
+        "idProductoVenta": 1,
+        "sumaTotalVenta": 5000,
+        "totalProductos": 15
+    }
+]
+]
+
+
+
