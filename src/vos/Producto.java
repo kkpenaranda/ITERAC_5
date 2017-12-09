@@ -13,19 +13,15 @@ public class Producto {
 	/**
 	 * Id del producto
 	 */
-	@JsonProperty(value="idProducto")
 	private Long idProducto;
 	
-	
-	@JsonProperty(value= "personalizable")
-	private boolean personalizable;
-	
+	private boolean personalizable;	
 	
 	@JsonProperty(value= "nombre")
 	private String nombre;
 	
-	@JsonProperty(value="traduccionDescripcion")
-	private String traduccionDescripcion;
+	@JsonProperty(value="traduccion")
+	private String traduccion;
 	
 	@JsonProperty(value= "tiempoPreparacion")
 	private double tiempoPreparacion;
@@ -33,13 +29,10 @@ public class Producto {
 	@JsonProperty(value= "descripcion")
 	private String descripcion;
 	
-	@JsonProperty(value= "idCategoria")
 	private Long idCategoria;
 	
-	@JsonProperty(value= "idTipoComida")
 	private Long idTipoComida;
 	
-	@JsonProperty(value= "idProductoVenta")
 	private Long idProductoVenta;
 
 	/**
@@ -48,16 +41,16 @@ public class Producto {
 	 * @param idProducto
 	 * @param personalizable
 	 * @param nombre
-	 * @param traduccionDescripcion
+	 * @param traduccion
 	 * @param tiempoPreparacion
 	 * @param descripcion
 	 */
-	public Producto(@JsonProperty(value="idProducto") Long idProducto, @JsonProperty(value= "personalizable") boolean personalizable, @JsonProperty(value= "nombre") String nombre, 	@JsonProperty(value="traduccionDescripcion") String traduccionDescripcion, @JsonProperty(value= "tiempoPreparacion") double tiempoPreparacion, @JsonProperty(value= "descripcion") String descripcion, @JsonProperty(value= "idCategoria") Long idCategoria, @JsonProperty(value= "idTipoComida") Long idTipoComida, @JsonProperty(value= "idProductoVenta") Long idProductoVenta){ 
-		super();
+	public Producto(Long idProducto, boolean personalizable, @JsonProperty(value= "nombre") String nombre, 	@JsonProperty(value="traduccion") String traduccion, @JsonProperty(value= "tiempoPreparacion") double tiempoPreparacion, @JsonProperty(value= "descripcion") String descripcion, Long idCategoria,  Long idTipoComida, Long idProductoVenta){ 
+		
 		this.idProducto= idProducto;
 		this.personalizable= personalizable;
 		this.nombre= nombre;
-		this.traduccionDescripcion= traduccionDescripcion;
+		this.traduccion= traduccion;
 		this.tiempoPreparacion= tiempoPreparacion;
 		this.descripcion=descripcion;
 		this.idCategoria = idCategoria;
@@ -65,23 +58,13 @@ public class Producto {
 		this.idProductoVenta = idProductoVenta;
 	}
 	
+	public Producto(  @JsonProperty(value= "nombre") String nombre, @JsonProperty(value="traduccion") String traduccion, @JsonProperty(value= "tiempoPreparacion") double tiempoPreparacion, @JsonProperty(value= "descripcion") String descripcion){
+		this.nombre= nombre;
+		this.traduccion= traduccion;
+		this.tiempoPreparacion= tiempoPreparacion;
+		this.descripcion=descripcion;
+	}
 	
-	public Long getIdProducto() {
-		return idProducto;
-	}
-
-	public void setIdProducto(Long idProducto) {
-		this.idProducto = idProducto;
-	}
-
-	public boolean isPersonalizable() {
-		return personalizable;
-	}
-
-	public void setPersonalizable(boolean personalizable) {
-		this.personalizable = personalizable;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -90,12 +73,12 @@ public class Producto {
 		this.nombre = nombre;
 	}
 
-	public String getTraduccionDescripcion() {
-		return traduccionDescripcion;
+	public String getTraduccion() {
+		return traduccion;
 	}
 
-	public void setTraduccionDescripcion(String traduccionDescripcion) {
-		this.traduccionDescripcion = traduccionDescripcion;
+	public void setTraduccion(String traduccion) {
+		this.traduccion = traduccion;
 	}
 
 	public double getTiempoPreparacion() {
@@ -114,33 +97,5 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
-
-	public Long getIdCategoria() {
-		return idCategoria;
-	}
-
-
-	public void setIdCategoria(Long idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-
-
-	public Long getIdTipoComida() {
-		return idTipoComida;
-	}
-
-
-	public void setIdTipoComida(Long idTipoComida) {
-		this.idTipoComida = idTipoComida;
-	}
-
-
-	public Long getIdProductoVenta() {
-		return idProductoVenta;
-	}
-
-
-	public void setIdProductoVenta(Long idProductoVenta) {
-		this.idProductoVenta = idProductoVenta;
-	}	
+	
 }

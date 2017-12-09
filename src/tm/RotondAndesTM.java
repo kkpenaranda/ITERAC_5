@@ -1915,35 +1915,7 @@ public class RotondAndesTM {
 	}
 
 
-	public void addProducto(Producto producto) throws Exception {
-		DAOTablaProducto daoProductos = new DAOTablaProducto();
-		try 
-		{
-			this.conn = darConexion();
-			daoProductos.setConn(conn);
-			daoProductos.addProducto(producto);
-			conn.commit();
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoProductos.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+	
 
 	public void addCategoria(Categoria categorie) throws Exception {
 		DAOTablaCategoria categoria = new DAOTablaCategoria();
@@ -2208,42 +2180,7 @@ public class RotondAndesTM {
 		}
 	}
 
-	public void addProductos(List<Producto> productos) throws Exception {
-		DAOTablaProducto daoProductos = new DAOTablaProducto();
-		try 
-		{
-			this.conn = darConexion();
-			conn.setAutoCommit(false);
-			daoProductos.setConn(conn);
-			Iterator<Producto> it = productos.iterator();
-			while(it.hasNext())
-			{
-				daoProductos.addProducto(it.next());
-			}
-
-			conn.commit();
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			conn.rollback();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			conn.rollback();
-			throw e;
-		} finally {
-			try {
-				daoProductos.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+	
 
 	public void addCondiciones(List<CondicionTecnica> condiciones) throws Exception {
 		DAOTablaCondicionTecnica daoCondiciones = new DAOTablaCondicionTecnica();
@@ -2661,34 +2598,7 @@ public class RotondAndesTM {
 	}
 
 
-	public void updateProducto(Producto producto) throws Exception {
-		DAOTablaProducto daoProductos = new DAOTablaProducto();
-		try 
-		{
-			this.conn = darConexion();
-			daoProductos.setConn(conn);
-			daoProductos.updateProducto(producto);
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoProductos.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+	
 
 	//	public void updatePedido(Pedido pedido) throws Exception {
 	//		DAOTablaPedido daoPedidos = new DAOTablaPedido();
@@ -3020,41 +2930,7 @@ public class RotondAndesTM {
 	}
 
 
-	public void deleteProducto(Producto producto) throws Exception {
-		DAOTablaProducto daoProductos = new DAOTablaProducto();
-		DAOTablaEquivalencias_Productos dao= new DAOTablaEquivalencias_Productos();
-		DAOTablaTiene_Producto tiene= new DAOTablaTiene_Producto();
-		try 
-		{
-			this.conn = darConexion();
-			daoProductos.setConn(conn);
-			dao.setConn(conn);
-			tiene.setConn(conn);
-			tiene.deleteProducto(producto.getIdProducto());
-			daoProductos.deleteProducto(producto);
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoProductos.cerrarRecursos();
-				dao.cerrarRecursos();
-				tiene.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
+	
 
 	public void deleteCondicion(CondicionTecnica condicion) throws Exception {
 		DAOTablaCondicionTecnica daoCondicion = new DAOTablaCondicionTecnica();
@@ -3663,13 +3539,7 @@ public class RotondAndesTM {
 										ArrayList<Long> productosMenu = daoTablaTiene_Producto.darProductosDelMenu(daoTablaMenu.buscarMenuPorIdProductoVenta(prodPedido).getId());										boolean menuDisponible=false;
 										for (int i = 0; i <productosMenu.size(); i++) {
 											Producto productoAct = daoTablaProducto.buscarProductoPorId(productosMenu.get(i));
-											if(daoProductoVenta.buscarProductoPorId((productoAct).getIdProductoVenta()).getCantidad()>= cantSolicitada){
-												menuDisponible=true;
-											}
-											else{
-												conn.rollback();
-												throw new Exception("Lo sentimos, en el momento no tenemos disponible la cantidad solicitada del producto "+productoAct.getNombre()+", solo tenemos "+(daoProductoVenta.buscarProductoPorId(prodPedido)).getCantidad()+"le ofrecemos personalizar su menù y cambiar este producto por uno equivalente");		
-											}							
+																	
 										}
 
 										if(menuDisponible){
@@ -3679,10 +3549,7 @@ public class RotondAndesTM {
 												Long pc=ingresoPedido.getProductoCambiado();
 												Long pn = ingresoPedido.getProductoNuevo();
 												System.out.println("Ingresando pedido de un menu personalizado...");
-												if(daoTablaProducto.buscarProductoPorId(pc).getIdCategoria().equals(daoTablaProducto.buscarProductoPorId(pn).getIdCategoria()) && (daoEquivalencias_Productos.buscarEquivalenciaProductosPorIds(pc, pn)!=null))
-												{
-
-													//CASO PEDIDO SIN MESA
+												//CASO PEDIDO SIN MESA
 													if(ingresoPedido.getMesa()==null){	
 														Date fecha = new Date();
 														Integer n = 1;
@@ -3713,13 +3580,6 @@ public class RotondAndesTM {
 															throw new Exception("El numero ingresado no corresponde a ninguna mesa");														
 														}
 													}
-												}
-
-												else
-												{
-													conn.rollback();
-													throw new Exception("Error en la personalizaciòn: Los productos a cambiar no son de la misma categorìa, no son equivalentes y por lo tanto no se pueden cambiar.");		
-												}
 											}
 											else
 											{
@@ -4356,91 +4216,7 @@ public class RotondAndesTM {
 		}
 	}
 
-	public void addEquivalenciaProductos(IngresarEquivalenciaProductos equivProd)  throws Exception {
-		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
-		DAOTablaProducto daoProductos = new DAOTablaProducto();
-		DAOTablaProducto_Venta daoProductoVenta = new DAOTablaProducto_Venta();
-		DAOTablaEquivalencias_Productos daoEquivalencias_Productos = new DAOTablaEquivalencias_Productos();
-		try 
-		{
-			this.conn = darConexion();
-			conn.setAutoCommit(false);
-			daoProductos.setConn(conn);
-			daoUsuario.setConn(conn);
-			daoProductoVenta.setConn(conn);
-			daoEquivalencias_Productos.setConn(conn);
-			Long idRes = equivProd.getIdUsuarioRestaurante();
-			Long idP1 = equivProd.getId_producto1();
-			Long idP2 = equivProd.getId_producto2();
-
-			if(daoUsuario.buscarUsuarioPorId(idRes)!= null){
-				if(daoUsuario.verificarContraseniaUsuario(idRes).equalsIgnoreCase(equivProd.getContrasenia())){
-					if(daoUsuario.buscarUsuarioPorId(equivProd.getIdUsuarioRestaurante()).getRol().equalsIgnoreCase("Restaurante")){
-						if(daoProductos.buscarProductoPorId(idP1)!=null || daoProductos.buscarProductoPorId(idP2)!=null )
-						{
-							Producto p1 = daoProductos.buscarProductoPorId(idP1);
-							Producto p2 = daoProductos.buscarProductoPorId(idP2);
-
-							if(p1.getIdCategoria() == p2.getIdCategoria())
-							{
-								if((daoProductoVenta.buscarProductoPorId(p1.getIdProductoVenta()).getNit().equals(idRes)) && (daoProductoVenta.buscarProductoPorId(p2.getIdProductoVenta()).getNit().equals(idRes)) ){
-									daoEquivalencias_Productos.addEquivalencia_Productos(idP1, idP2, idRes);
-									conn.commit();
-								}
-								else
-								{
-									throw new Exception("Lo sentimos, los productos "+p1.getNombre()+" y "+ p2.getNombre() +" no existen en su restaurante.");
-								}
-
-							}
-							else
-							{
-								throw new Exception("Las categorias de los productos equivalentes DEBEN ser iguales y no lo son");
-							}
-						}	
-						else
-						{
-							throw new Exception("Los productos ingresados no existen en la base de datos");
-						}
-					}
-					else
-					{
-						throw new Exception("El usuario no tiene nol de Restaurante, su rol es "+daoUsuario.buscarUsuarioPorId(idRes).getRol());
-					}	
-
-				}
-				else{
-					throw new Exception("Contraseña incorrecta :c");
-				}
-			}
-			else{
-				throw new Exception("El identificador dado no le pertenece a un usuario registrado en el sistema.");		
-			}	
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoProductos.cerrarRecursos();
-				daoEquivalencias_Productos.cerrarRecursos();
-				daoUsuario.cerrarRecursos();
-				daoProductoVenta.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
-
+	
 
 	/**
 	 * 
@@ -4927,222 +4703,7 @@ public class RotondAndesTM {
 	}
 
 
-	public void addIngresarProductoRestaurante(IngresarProducto ingresoProducto) throws Exception {
-		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
-		DAOTablaProducto daoProductos = new DAOTablaProducto();
-		DAOTablaProducto_Venta daoProductoVenta = new DAOTablaProducto_Venta();
-		DAOTablaIngrediente daoIngredientes = new DAOTablaIngrediente();
-		DAOTablaIngrediente_Producto daoIngredienteProducto = new DAOTablaIngrediente_Producto();
-		DAOTablaIngrediente_Restaurante daoTablaIngrediente_Restaurante = new DAOTablaIngrediente_Restaurante();
-
-		try 
-		{
-			this.conn = darConexion();
-			conn.setAutoCommit(false);
-			daoProductos.setConn(conn);
-			daoUsuario.setConn(conn);
-			daoProductoVenta.setConn(conn);
-			daoIngredientes.setConn(conn);
-			daoIngredienteProducto.setConn(conn);
-			daoTablaIngrediente_Restaurante.setConn(conn);
-			Long idRes = ingresoProducto.getIdUsuarioRestaurante();
-			if(daoUsuario.buscarUsuarioPorId(idRes)!= null)
-			{
-				if(daoUsuario.verificarContraseniaUsuario(idRes).equalsIgnoreCase(ingresoProducto.getContrasenia()))
-				{
-					if(daoUsuario.buscarUsuarioPorId(ingresoProducto.getIdUsuarioRestaurante()).getRol().equalsIgnoreCase("Restaurante"))
-					{
-						if(ingresoProducto.getProductoVenta().getId_ProductoVenta() == ingresoProducto.getProducto().getIdProductoVenta())
-						{
-							if(ingresoProducto.getProductoVenta().getCantidad().equals(ingresoProducto.getProductoVenta().getCantidadMaxima()))
-							{
-								daoProductoVenta.addProductoVenta(ingresoProducto.getProductoVenta());
-								daoProductos.addProducto(ingresoProducto.getProducto());
-								Iterator<Long> it = ingresoProducto.getIngredientes().iterator();
-								while(it.hasNext())
-								{
-									Long ingAct = it.next();
-									if(daoIngredientes.buscarIngredientePorId(ingAct)!= null)
-									{
-										if(daoTablaIngrediente_Restaurante.buscarIngredientePorId(ingAct)!= null)
-										{
-											if(daoTablaIngrediente_Restaurante.buscarIngredientePorId(ingAct).getNit_restaurante().equals(idRes))
-											{
-												daoIngredienteProducto.addIngrediente_Producto(ingAct, ingresoProducto.getProducto().getIdProducto());
-											}
-											else
-											{
-												System.out.println(conn.getAutoCommit());
-												conn.rollback();
-												throw new Exception("El ingrediente con identificador "+ingAct+" no existe en su restaurante.");
-											}
-										}
-										else
-											throw new Exception("No existe este ingrediente en ningun restaurante.");
-
-									}
-									else
-									{
-										conn.rollback();
-										throw new Exception("El ingrediente con identificador "+ingAct+" no existe en la base de datos de la rotonda");
-									}
-								}
-							}
-							else if(ingresoProducto.getProductoVenta().getCantidad()> ingresoProducto.getProductoVenta().getCantidadMaxima()){
-								throw new Exception("La cantidad inicial no puede ser mayor que la cantidad maxima definida.");
-							}
-							else
-								throw new Exception("Las cantidades de los productos deben coincidir.");
-						}
-						else
-						{
-							conn.rollback();
-							throw new Exception("Los identificadores del producto de venta no son iguales y deben serlo");
-						}
-
-					}
-					else
-					{
-						throw new Exception("El usuario no tiene nol de Restaurante, su rol es "+daoUsuario.buscarUsuarioPorId(ingresoProducto.getIdUsuarioRestaurante()).getRol());
-					}
-
-				}
-				else{
-					throw new Exception("Contraseña incorrecta :c");
-				}
-			}
-			else{
-				throw new Exception("El identificador dado no le pertenece a un usuario registrado en el sistema.");
-			}
-			conn.commit();
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoProductos.cerrarRecursos();
-				daoIngredienteProducto.cerrarRecursos();
-				daoIngredientes.cerrarRecursos();
-				daoUsuario.cerrarRecursos();
-				daoProductoVenta.cerrarRecursos();
-				daoTablaIngrediente_Restaurante.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
-
-
-
-	public void addIngresarMenuRestaurante(IngresarMenu ingresarMenu) throws Exception {
-		DAOTablaMenu daoMenus = new DAOTablaMenu();
-		DAOTablaUsuario daoUsuario = new DAOTablaUsuario();
-		DAOTablaProducto_Venta daoProductoVenta = new DAOTablaProducto_Venta();
-		DAOTablaTiene_Producto daoTiene_Producto = new DAOTablaTiene_Producto();
-		DAOTablaProducto daoProducto = new DAOTablaProducto();
-		try 
-		{
-			this.conn = darConexion();
-			conn.setAutoCommit(false);
-			daoMenus.setConn(conn);
-			daoUsuario.setConn(conn);
-			daoProductoVenta.setConn(conn);
-			daoTiene_Producto.setConn(conn);
-			daoProducto.setConn(conn);
-			Long idRes = ingresarMenu.getIdUsuarioRestaurante();
-			if(daoUsuario.buscarUsuarioPorId(idRes)!=null){
-				System.out.println("si existe el r: "+idRes);
-				if(daoUsuario.verificarContraseniaUsuario(idRes).equalsIgnoreCase(ingresarMenu.getContrasenia())){
-					if(daoUsuario.buscarUsuarioPorId(ingresarMenu.getIdUsuarioRestaurante()).getRol().equalsIgnoreCase("Restaurante")){
-						System.out.println("Se verifico el restaurante");
-						daoProductoVenta.addProductoVenta(ingresarMenu.getProductoVenta());
-						if(ingresarMenu.getProductoVenta().getId_ProductoVenta().equals(ingresarMenu.getMenu().getIdProductoVenta())){
-							if(ingresarMenu.getProductoVenta().getNit()==idRes){
-								daoMenus.addMenu(ingresarMenu.getMenu());
-								Iterator<Long> it = ingresarMenu.getProductos().iterator();
-								while(it.hasNext()) {
-									Long prodAct = it.next();
-									if(daoProducto.buscarProductoPorId(prodAct)!= null)
-									{
-										if(daoProductoVenta.buscarProductoPorId(prodAct).getNit()==idRes ){
-											daoTiene_Producto.addTiene_Producto(ingresarMenu.getMenu().getId(), prodAct, daoProducto.buscarProductoPorId(prodAct).getIdCategoria());	
-										}
-										else
-										{
-											conn.rollback();
-											throw new Exception("El producto "+prodAct +" no existe en su restaurante.");
-										}
-									}
-									else
-									{
-										conn.rollback();
-										throw new Exception("El producto con identificador "+prodAct+" no existe en la base de datos de la rotonda");
-									}
-								}
-							}
-							else
-							{
-								conn.rollback();
-								throw new Exception("El nit del restaurante asociado al producto venta, debe ser el mismo de quien lo ingresa");
-							}
-						}
-						else
-						{
-							conn.rollback();
-							throw new Exception("Los identificadores del producto de venta no son iguales y deben serlo ( "+ingresarMenu.getProductoVenta().getId_ProductoVenta() +" != "+ ingresarMenu.getMenu().getIdProductoVenta()+" )");
-						}
-					}
-					else
-					{
-						throw new Exception("El usuario no tiene nol de Restaurante, su rol es "+daoUsuario.buscarUsuarioPorId(ingresarMenu.getIdUsuarioRestaurante()).getRol());
-					}	
-				}
-				else{
-					throw new Exception("Contraseña incorrecta :c");
-				}
-			}
-			else{
-				throw new Exception("El identificador dado no le pertenece a un usuario registrado en el sistema.");		
-			}
-			conn.commit();
-
-		} catch (SQLException e) {
-			System.err.println("SQLException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			System.err.println("GeneralException:" + e.getMessage());
-			e.printStackTrace();
-			throw e;
-		} finally {
-			try {
-				daoMenus.cerrarRecursos();
-				daoUsuario.cerrarRecursos();
-				daoProducto.cerrarRecursos();
-				daoProductoVenta.cerrarRecursos();
-				daoTiene_Producto.cerrarRecursos();
-				if(this.conn!=null)
-					this.conn.close();
-			} catch (SQLException exception) {
-				System.err.println("SQLException closing resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
-
-
-
+	
 	public void deleteEquivalencias(IngresarEquivalenciaProductos id) throws Exception {
 		DAOTablaEquivalencias_Productos daoTabla = new DAOTablaEquivalencias_Productos();
 		try 

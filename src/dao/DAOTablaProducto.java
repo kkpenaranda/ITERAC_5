@@ -71,7 +71,8 @@ public class DAOTablaProducto {
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
-		while (rs.next()) {
+		int n=0;
+		while (rs.next() && n<100) {
 			Long id = rs.getLong("ID_PRODUCTO");
 			boolean personalizable = rs.getBoolean("PERSONALIZABLE");
 			String nombre = rs.getString("NOMBRE");
@@ -82,6 +83,8 @@ public class DAOTablaProducto {
 			Long idTipoComida = rs.getLong("ID_TIPO");
 			Long idProdVenta = rs.getLong("ID_PRODUCTO_VENTA");
 			productos.add(new Producto(id, personalizable, nombre, traduccion, tiempo, descripcion, idCategoria,idTipoComida, idProdVenta));
+			
+			n++;
 		}
 		return productos;
 	}
@@ -159,31 +162,7 @@ public class DAOTablaProducto {
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el producto a la base de datos
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void addProducto(Producto producto) throws SQLException, Exception {
-
-		String sql = "INSERT INTO PRODUCTO (ID_PRODUCTO, PERSONALIZABLE, NOMBRE, TRADUCCION, TIEMPO_PREPARACION, DESCRIPCION, ID_CATEGORIA, ID_TIPO, ID_PRODUCTO_VENTA) VALUES (";
-		sql += producto.getIdProducto() + ",";
-		if(producto.isPersonalizable()){
-			sql +=  "0,'";
-		}
-		else{
-			sql +=  "1,'";
-		}
-
-		sql += producto.getNombre() + "','";
-		sql += producto.getTraduccionDescripcion() + "',";
-		sql += producto.getTiempoPreparacion() + ",'";
-		sql += producto.getDescripcion() + "',";
-		sql += producto.getIdCategoria() + ",";
-		sql += producto.getIdTipoComida() +",";
-		sql += producto.getIdProductoVenta() +")";
-
-		System.out.println(sql);
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-	}
+	
 
 	/**
 	 * Metodo que actualiza el producto que entra como parametro en la base de datos.
@@ -193,24 +172,7 @@ public class DAOTablaProducto {
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el producto.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void updateProducto(Producto producto) throws SQLException, Exception {
-
-		String sql = "UPDATE PRODUCTO SET ";
-		sql += "NOMBRE='" + producto.getNombre()+ "',";
-		sql += "TRADUCCION='" + producto.getTraduccionDescripcion()+ "',";
-		sql += "TIEMPO_PREPARACION=" + producto.getTiempoPreparacion()+ ",";
-		sql += "DESCRIPCION='" + producto.getDescripcion()+ "',";
-		sql += "ID_CATEGORIA=" + producto.getIdCategoria()+ ",";
-		sql += "ID_TIPO=" + producto.getIdTipoComida();
-		sql += "ID_PRODUCTO_VENTA=" + producto.getIdProductoVenta();
-		sql += " WHERE ID_PRODUCTO = " + producto.getIdProducto();
-		System.out.println(sql);
-
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-	}
+	
 
 	/**
 	 * Metodo que elimina el producto que entra como parametro en la base de datos.
@@ -220,18 +182,7 @@ public class DAOTablaProducto {
 	 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el producto.
 	 * @throws Exception - Cualquier error que no corresponda a la base de datos
 	 */
-	public void deleteProducto(Producto producto) throws SQLException, Exception {
-
-		String sql = "DELETE FROM PRODUCTO";
-		sql += " WHERE ID_PRODUCTO = " + producto.getIdProducto();
-
-		System.out.println(sql);
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-	}
-
+	
 
 	public Producto buscarProductoEncontradoMayorCantidadMenus() throws SQLException, Exception 
 	{

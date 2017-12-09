@@ -148,18 +148,7 @@ public class RotondAndesProductoVentaServices {
 	 * @param producto - producto a agregar
 	 * @return Json con el producto que agrego o Json con el error que se produjo
 	 */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addProducto(Producto producto) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		try {
-			tm.addProducto(producto);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(producto).build();
-	}
+
 
 	/**
 	 * Metodo que expone servicio REST usando POST que agrega los productos que recibe en Json
@@ -167,56 +156,6 @@ public class RotondAndesProductoVentaServices {
 	 * @param productos - productos a agregar. 
 	 * @return Json con el producto que agrego o Json con el error que se produjo
 	 */
-	@POST
-	@Path("/varios")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addProducto(List<Producto> productos) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		try {
-			tm.addProductos(productos);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(productos).build(); 
-	}
+	
 
-	/**
-	 * Metodo que expone servicio REST usando PUT que actualiza el producto que recibe en Json
-	 * <b>URL: </b> http://"ip o nombre de host":8080/RotondAndes/rest/productos
-	 * @param producto - producto a actualizar. 
-	 * @return Json con el producto que actualizo o Json con el error que se produjo
-	 */
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateProducto(Producto producto) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		try {
-			tm.updateProducto(producto);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(producto).build();
-	}
-
-	/**
-	 * Metodo que expone servicio REST usando DELETE que elimina el producto que recibe en Json
-	 * <b>URL: </b> http://"ip o nombre de host":8080/RotondAndes/rest/productos
-	 * @param producto - producto a aliminar. 
-	 * @return Json con el producto que elimino o Json con el error que se produjo
-	 */
-
-	@DELETE
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteProducto(Producto producto) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		try {
-			tm.deleteProducto(producto);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(producto).build();
-	}
 }

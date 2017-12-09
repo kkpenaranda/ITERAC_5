@@ -54,17 +54,5 @@ public class RotondAndesIngresarProductoRestauranteServices {
      * <b>URL: </b> http://"ip o nombre de host":8080/RotondAndes/rest/ingresosRestaurante/ingresoProducto
      * @param ingresoProducto - ingresoProducto a agregar
      * @return Json con el ingresoProducto que agrego o Json con el error que se produjo
-     */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addIngresosRestaurante(IngresarProducto ingresoProducto) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		try {
-			tm.addIngresarProductoRestaurante(ingresoProducto);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(ingresoProducto).build();
-	}	
+  */	
 }

@@ -42,19 +42,7 @@ public class RotondAndesIngresarEquivalenciasProductosServices {
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
 	
-	
-    @POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addEquivalenciaProductos(IngresarEquivalenciaProductos equivProd) {
-		RotondAndesTM tm = new RotondAndesTM(getPath());
-		try {
-			tm.addEquivalenciaProductos(equivProd);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(equivProd).build();
-	}
+
 	
 
     @DELETE
